@@ -1,244 +1,250 @@
-<!--
-fivem-rules-website.html
-Single-file responsive website to present Zilverdam server regels/regulation.
-How to use:
-1. Save this file as `index.html`.
-2. Create a new GitHub repo and upload `index.html`.
-3. Enable GitHub Pages from the repository settings (use root /main branch) to publish.
-
-This file contains a light/dark toggle, anchor navigation, printable view and example content (Dutch)
-Replace or extend the sections with your final rules.
--->
-
 <!doctype html>
 <html lang="nl">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Zilverdam Roleplay — Server Regels</title>
-  <meta name="description" content="Clean en overzichtelijke presentatie van de regels voor een Zilverdam server.">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>Zilverdam Roleplay — Wetboek & Regels</title>
+  <meta name="description" content="Wet- en regelgeving voor Zilverdam Roleplay - Overheid, Onderwereld, APV en serverregels.">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#0f1724; --card:#0b1220; --muted:#94a3b8; --accent:#7c3aed; --glass:rgba(255,255,255,0.04);
-      --text:#e6eef8; --maxw:1100px;
-    }
-    [data-theme="light"]{ --bg:#f7fafc; --card:#ffffff; --muted:#556070; --accent:#6b46c1; --glass:rgba(2,6,23,0.03); --text:#071025 }
+    :root{--blue:#3b5bdc;--muted:#6b7785;--bg:#ffffff;--panel:#f8f9fb;--text:#0f1724}
     *{box-sizing:border-box}
-    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto; margin:0; background:linear-gradient(180deg,var(--bg),rgba(0,0,0,0)); color:var(--text); -webkit-font-smoothing:antialiased}
-    .container{max-width:var(--maxw); margin:40px auto; padding:24px}
-    header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
-    .logo{display:flex;align-items:center;gap:12px}
-    .brand{font-weight:700;font-size:20px}
-    .tag{color:var(--muted);font-size:13px}
-    .controls{margin-left:auto;display:flex;gap:8px;align-items:center}
-    .btn{background:var(--glass);border-radius:10px;padding:8px 12px;border:1px solid rgba(255,255,255,0.03);cursor:pointer;color:var(--text);font-weight:600}
-    nav{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
-    nav a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:8px;font-size:14px}
-    nav a:hover{color:var(--text);background:var(--glass)}
-    .grid{display:grid;grid-template-columns:320px 1fr;gap:20px}
-    aside{position:sticky;top:20px;padding:18px;border-radius:12px;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.02));border:1px solid rgba(255,255,255,0.02)}
-    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(2,6,23,0.5);border:1px solid rgba(255,255,255,0.03)}
-    h1{margin:0;font-size:24px}
-    h2{font-size:18px;margin:0 0 10px}
-    .intro{color:var(--muted);margin-top:6px}
-    .penalties{display:flex;flex-direction:column;gap:8px}
-    .pen-row{display:flex;justify-content:space-between;padding:8px;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent)}
-    .pen-cat{font-weight:700}
-    .content{display:flex;flex-direction:column;gap:16px}
-    section.rule{padding:18px;border-radius:10px;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.02));border:1px solid rgba(255,255,255,0.02)}
-    .rule h3{margin:0 0 8px}
-    .rule p{margin:0;color:var(--muted)}
-    ul.rules{margin:10px 0 0 18px}
-    .actions{display:flex;gap:8px}
-    pre{background:rgba(0,0,0,0.25);padding:12px;border-radius:8px;overflow:auto}
-    footer{margin-top:28px;color:var(--muted);font-size:13px}
-    @media (max-width:900px){.grid{grid-template-columns:1fr} aside{position:relative}} 
-    /* printable */
-    @media print{
-      body{background:white;color:black}
-      .controls,nav,footer{display:none}
-      .grid{grid-template-columns:1fr}
-      aside{display:none}
-    }
+    body{font-family:Inter,Segoe UI,Roboto,Arial; margin:0; color:var(--text); background:var(--bg)}
+    .topbar{background:var(--blue);color:white;padding:12px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 2px 6px rgba(0,0,0,0.06)}
+    .brand{font-weight:700;font-size:18px}
+    .search{margin-left:auto;display:flex;gap:10px;align-items:center}
+    .container{display:grid;grid-template-columns:260px 1fr 280px;gap:28px;max-width:1200px;margin:28px auto;padding:0 20px}
+    .sidebar{background:var(--panel);padding:18px;border-radius:6px;border:1px solid rgba(16,24,40,0.04)}
+    .sidebar a{display:block;color:var(--blue);text-decoration:none;padding:8px 6px;border-radius:4px;margin-bottom:6px}
+    .sidebar a:hover{background:rgba(59,91,220,0.08)}
+    .content{padding:0 6px}
+    .hero{margin-bottom:18px}
+    h1{font-weight:600;margin:6px 0 10px}
+    p.lead{color:var(--muted);line-height:1.6}
+    .card{background:white;padding:18px;border-radius:6px;border:1px solid rgba(16,24,40,0.04);box-shadow:0 6px 20px rgba(16,24,40,0.03);margin-bottom:16px}
+    .toc{background:var(--panel);padding:18px;border-radius:6px;border:1px solid rgba(16,24,40,0.04)}
+    .toc h4{margin:0 0 8px}
+    .toc a{display:block;color:var(--muted);text-decoration:none;padding:6px 0}
+    section.rule{margin-bottom:12px}
+    section.rule h2{margin:0 0 8px;color:var(--blue)}
+    ul.rulelist{margin:6px 0 0 18px;color:var(--muted)}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    th,td{padding:10px;border-bottom:1px solid #eef2f7;text-align:left}
+    th{background:#fbfcfe;color:#475569;font-weight:600}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:1024px){.container{grid-template-columns:220px 1fr;}.toc{display:none}}
+    @media (max-width:640px){.container{grid-template-columns:1fr;}.sidebar{order:2}.toc{order:3}}
   </style>
 </head>
-<body data-theme="dark">
-  <div class="container">
-    <header>
-      <div class="logo">
-        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" aria-hidden><rect width="24" height="24" rx="6" fill="url(#g)"/></svg>
-        <div>
-          <div class="brand">Zilverdam Roleplay Regels</div>
-          <div class="tag">Overzichtelijk, printable, klaar voor GitHub Pages</div>
-        </div>
-      </div>
-      <div class="controls">
-        <button class="btn" id="toggle-theme">Toggle Light</button>
-        <button class="btn" id="print">Print</button>
-        <a class="btn" href="#download" id="downloadBtn">Download</a>
-      </div>
-    </header>
-
-    <nav>
-      <a href="#penalties">Sancties</a>
-      <a href="#behavior">Gedrag & Communicatie</a>
-      <a href="#rp">Roleplay-regels</a>
-      <a href="#economy">Economie & Items</a>
-      <a href="#safety">Hulpdiensten & Veiligheid</a>
-      <a href="#tech">Technisch & Exploits</a>
-      <a href="#vehicles">Voertuigen & Rijden</a>
-      <a href="#general">Algemene regels</a>
-    </nav>
-
-    <div class="grid">
-      <aside class="card">
-        <h2 id="penalties">Sancties & Categorieën</h2>
-        <p class="intro">Elke overtreding heeft een categorie met bijbehorende strafmaat. Voorbeeld:</p>
-        <div class="penalties">
-          <div class="pen-row"><div class="pen-cat">Cat 1</div><div>Warn + 25 taken</div></div>
-          <div class="pen-row"><div class="pen-cat">Cat 2</div><div>Warn + 50 taken</div></div>
-          <div class="pen-row"><div class="pen-cat">Cat 3</div><div>Warn + 75 taken</div></div>
-          <div class="pen-row"><div class="pen-cat">Cat 4</div><div>Warn + 100 taken</div></div>
-          <div class="pen-row"><div class="pen-cat">Cat 5</div><div>Warn + 125 taken</div></div>
-          <div class="pen-row"><div class="pen-cat">Cat 6</div><div>Warn + 150 taken</div></div>
-          <div class="pen-row"><div class="pen-cat">Cat 7</div><div>Warn + Ban van 48 uur</div></div>
-          <div class="pen-row"><div class="pen-cat">Cat 8</div><div>Warn + Ban van 96 uur</div></div>
-          <div class="pen-row"><div class="pen-cat">Cat 9</div><div>Perm ban</div></div>
-          <div class="pen-row"><div class="pen-cat">Cat 10</div><div>Perm ban + Account Wipe</div></div>
-        </div>
-
-        <hr style="margin:14px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)">
-        <div style="font-size:13px;color:var(--muted)">Tip: klik op een sectie om er direct naar te springen. Gebruik de print-knop voor een papieren versie.</div>
-      </aside>
-
-      <main class="content">
-        <section id="behavior" class="rule card">
-          <h3>Gedrag en Communicatie</h3>
-          <p class="intro">Samenvatting van belangrijke communicatie- en gedragsregels (NL).</p>
-          <ul class="rules">
-            <li><strong>Art 1 – Respect:</strong> Schelden, beledigen of ander ongepast gedrag is verboden. Straf: Cat.1 (bij ernstig Cat.4).</li>
-            <li><strong>Art 2 – Taalgebruik:</strong> Bij binnenkomst is Nederlands verplicht als voertaal. Straf: Cat.1.</li>
-            <li><strong>Art 3 – Overlast:</strong> Opzettelijk overlast veroorzaken is verboden. Straf: Cat.4.</li>
-            <li><strong>Art 4 – Spammen / Onzin-reports:</strong> Verboden. Straf: Cat.2.</li>
-            <li><strong>Art 5 – OOC praten:</strong> Onnodig uit karakter praten niet toegestaan. Straf: Cat.2.</li>
-          </ul>
-        </section>
-
-        <section id="rp" class="rule card">
-          <h3>Roleplay-regels</h3>
-          <ul class="rules">
-            <li><strong>Art 6 – Fail RP:</strong> Niet realistisch deelnemen is verboden. Straf: Cat.5.</li>
-            <li><strong>Art 7 – Verstoren RP:</strong> Opzettelijk RP van anderen verstoren niet toegestaan. Straf: Cat.3.</li>
-            <li><strong>Art 8 – Metagaming:</strong> Informatie van buiten Zilverdam gebruiken is verboden. Straf: Cat.4.</li>
-            <li><strong>Art 9 – Streamsniping:</strong> Spelers via streams opzoeken is verboden. Straf: Cat.6.</li>
-            <li><strong>Art 10 – New Life Rule:</strong> Na dood niets van vorige scenario onthouden. Straf: Cat.4.</li>
-            <li><strong>Art 11 – No Value of Life:</strong> Geen waarde hechten aan je karakter is niet toegestaan. Straf: Cat.6.</li>
-            <li><strong>Art 12 – RDM:</strong> Spelers zonder reden doden is verboden. Straf: Cat.5.</li>
-            <li><strong>Art 13 – VDM:</strong> Spelers opzettelijk aanrijden is verboden. Straf: Cat.4.</li>
-            <li><strong>Art 14 – Combat-loggen:</strong> Binnen 10 minuten na scenario uitloggen is verboden. Straf: Cat.4 + wapen inleveren indien van toepassing.</li>
-            <li><strong>Art 15 – Combat-stashen:</strong> Binnen 10 minuten na scenario wapen wegleggen is verboden. Straf: Cat.3 + wapen inleveren indien van toepassing.</li>
-          </ul>
-        </section>
-
-        <section id="economy" class="rule card">
-          <h3>Economie & Items</h3>
-          <ul class="rules">
-            <li><strong>Art 16 – Scammen:</strong> Oplichten met voertuigen, wapens of items is niet toegestaan. Straf: Cat.4 + items teruggeven.</li>
-            <li><strong>Art 17 – IRL-Trading:</strong> Items verkopen voor echt geld is verboden. Straf: Cat.10.</li>
-            <li><strong>Art 18 – Overheidskleding:</strong> Burgers mogen geen overheidskleding dragen. Straf: Cat.3.</li>
-            <li><strong>Art 19 – Impersonatie Overheid:</strong> Zich voordoen als overheidsmedewerker is verboden. Straf: Cat.3.</li>
-            <li><strong>Art 20 – Copbaiting:</strong> Politie bewust uitlokken is verboden. Straf: Cat.3.</li>
-          </ul>
-        </section>
-
-        <section id="safety" class="rule card">
-          <h3>Hulpdiensten & Veiligheid</h3>
-          <ul class="rules">
-            <li><strong>Art 21:</strong> Gijzelen of doden van ambulancepersoneel niet toegestaan. Straf: Cat.5.</li>
-            <li><strong>Art 22:</strong> Staff-impersonatie verboden. Straf: Cat.5.</li>
-            <li><strong>Art 23:</strong> Spelers moeten een werkende microfoon hebben. Straf: Cat.1.</li>
-          </ul>
-        </section>
-
-        <section id="tech" class="rule card">
-          <h3>Technisch & Exploits</h3>
-          <ul class="rules">
-            <li><strong>Art 24 – Cheats:</strong> Externe software of cheats verboden. Straf: Cat.10.</li>
-            <li><strong>Art 25 – Exploits:</strong> Bugs misbruiken verboden. Straf: Cat.5 (ernstig: Cat.10).</li>
-          </ul>
-        </section>
-
-        <section id="vehicles" class="rule card">
-          <h3>Voertuigen & Rijden</h3>
-          <ul class="rules">
-            <li><strong>Art 28:</strong> Met voertuigen gebouwen binnenrijden is verboden. Straf: Cat.3.</li>
-            <li><strong>Art 29 – Basic outfit:</strong> Standaard GTA-outfit verplicht. Straf: Cat.2.</li>
-            <li><strong>Art 30 – GTA-Style Driving:</strong> Onrealistisch rijgedrag verboden. Straf: Cat.1-2.</li>
-            <li><strong>Art 31 – Refunds:</strong> Clip min. 5 minuten en eigen stem vereist. Straf: Cat.2 bij misbruik.</li>
-            <li><strong>Art 32 – Donatie-auto’s:</strong> Donatievoertuigen mogen niet worden doorverkocht. Straf: Cat.4.</li>
-          </ul>
-        </section>
-
-        <section id="general" class="rule card">
-          <h3>Algemene regels</h3>
-          <ul class="rules">
-            <li><strong>Art 33 – Bodylooten:</strong> Spullen van een dode speler afpakken verboden. Straf: Cat.3.</li>
-            <li><strong>Art 34 – Afmaken:</strong> Alleen afmaken bij schieten door 3+ mensen. Straf: Cat.3.</li>
-            <li><strong>Art 35 – Uit auto schieten:</strong> Schieten in/uit auto is niet toegestaan. Straf: Cat.2.</li>
-            <li><strong>Art 36 – Schelden met ziektes:</strong> Verboden. Straf: Cat.4.</li>
-            <li><strong>Art 37 – Liegen tegen staff:</strong> Niet toegestaan. Straf: Cat.5.</li>
-            <li><strong>Art 38 – Stemherkenning:</strong> Personen herkennen via stem is niet toegestaan. Straf: Cat.3.</li>
-            <li><strong>Art 40 – Gangkleding:</strong> Gangkleding verboden behalve voor leden van die gang.</li>
-          </ul>
-        </section>
-
-        <footer>
-          © "Zilverdam Roleplay" — Pas regels aan voordat je publiceert. Gebruik de download-knop om een copy van deze pagina te krijgen (HTML).
-        </footer>
-      </main>
+<body>
+  <div class="topbar">
+    <div class="brand">Zilverdam Roleplay — Wetboek</div>
+    <div class="search">
+      <div style="opacity:.9">🌙</div>
+      <input placeholder="Zoeken" style="padding:8px 10px;border-radius:6px;border:1px solid rgba(16,24,40,0.06)" />
     </div>
   </div>
 
-  <script>
-    // theme toggle
-    const btn = document.getElementById('toggle-theme');
-    const body = document.body;
-    btn.addEventListener('click', ()=>{
-      if(body.getAttribute('data-theme') === 'dark'){
-        body.setAttribute('data-theme','light'); btn.textContent = 'Toggle Dark';
-      } else { body.setAttribute('data-theme','dark'); btn.textContent = 'Toggle Light'; }
-    });
-    // print
-    document.getElementById('print').addEventListener('click', ()=>window.print());
-    // download HTML
-    document.getElementById('downloadBtn').addEventListener('click', (e)=>{
-      e.preventDefault();
-      const blob = new Blob([document.documentElement.outerHTML], {type: 'text/html'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = 'index.html'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-    });
-  </script>
-  <section id="overheid">
-    <h2>Overheidsregels</h2>
-    <ul>
-      <li>Ambtenaren moeten altijd professioneel handelen.</li>
-      <li>Gebruik van overheidsvoertuigen alleen tijdens dienst.</li>
-      <li>Corruptie is verboden tenzij vooraf goedgekeurd als RP-scenario.</li>
-      <li>Gebruik van geweld moet proportioneel zijn.</li>
-    </ul>
-  </section>
+  <div class="container">
+    <aside class="sidebar">
+      <strong>Inhoud</strong>
+      <nav style="margin-top:10px">
+        <a href="#intro">Home</a>
+        <a href="#sancties">Sancties & Categorieën</a>
+        <a href="#gedrag">Gedrag & Communicatie</a>
+        <a href="#rp">Roleplay-regels</a>
+        <a href="#economie">Economie & Items</a>
+        <a href="#veiligheid">Hulpdiensten & Veiligheid</a>
+        <a href="#techniek">Technisch & Exploits</a>
+        <a href="#voertuigen">Voertuigen & Rijden</a>
+        <a href="#overheid">Overheidsregels</a>
+        <a href="#onderwereld">Onderwereldregels</a>
+        <a href="#algemeen">Algemene regels</a>
+        <a href="#contact">Contact / Discord</a>
+      </nav>
+    </aside>
 
-  <section id="onderwereld">
-    <h2>Onderwereldregels</h2>
-    <ul>
-      <li>Criminele activiteiten moeten logisch en realistisch worden uitgevoerd.</li>
-      <li>Geen ontvoeringen zonder geldige RP-reden.</li>
-      <li>Rippen zonder RP of Fear-RP schending is niet toegestaan.</li>
-      <li>Wapendeals, drugslabs en andere activiteiten moeten coherent zijn binnen het verhaal.</li>
-    </ul>
-  </section>
+    <main class="content">
+      <div class="hero">
+        <h1 id="intro">Wetgeving Zilverdam Roleplay</h1>
+        <p class="lead">Welkom bij het officiële wetboek van Zilverdam Roleplay. Hieronder vind je de regels voor spelers, overheid, hulpdiensten en de onderwereld. Deze regels zijn van toepassing op alle spelers binnen de server.</p>
+      </div>
 
+      <div class="card" id="sancties">
+        <h2>Sancties & Categorieën</h2>
+        <p class="lead">Overtredingen worden ingedeeld in categorieën met bijbehorende sancties. Hieronder staat een veelgebruikt voorbeeldbeleid.</p>
+        <table>
+          <thead><tr><th>Categorie</th><th>Sanctie</th></tr></thead>
+          <tbody>
+            <tr><td>Cat 1</td><td>Warn + 25 taken</td></tr>
+            <tr><td>Cat 2</td><td>Warn + 50 taken</td></tr>
+            <tr><td>Cat 3</td><td>Warn + 75 taken</td></tr>
+            <tr><td>Cat 4</td><td>Warn + 100 taken</td></tr>
+            <tr><td>Cat 5</td><td>Warn + 125 taken</td></tr>
+            <tr><td>Cat 6</td><td>Warn + 150 taken</td></tr>
+            <tr><td>Cat 7</td><td>Warn + Ban 48 uur</td></tr>
+            <tr><td>Cat 8</td><td>Warn + Ban 96 uur</td></tr>
+            <tr><td>Cat 9</td><td>Perm ban</td></tr>
+            <tr><td>Cat 10</td><td>Perm ban + Account Wipe</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <section id="gedrag" class="card rule">
+        <h2>Gedrag en Communicatie</h2>
+        <ul class="rulelist">
+          <li><strong>Art 1 – Respect:</strong> Schelden, beledigen of ander ongepast gedrag naar spelers is verboden. Straf: Cat.1 (bij ernstige gevallen Cat.4).</li>
+          <li><strong>Art 2 – Taalgebruik:</strong> Bij binnenkomst is Nederlands verplicht als voertaal. Straf: Cat.1.</li>
+          <li><strong>Art 3 – Overlast:</strong> Opzettelijk overlast veroorzaken of griefing is verboden. Straf: Cat.4.</li>
+          <li><strong>Art 4 – Spammen / Onzin-reports:</strong> Het spammen van chat of onzin-reports is verboden. Straf: Cat.2.</li>
+          <li><strong>Art 5 – OOC praten:</strong> Onnodig out-of-character praten is niet toegestaan. Straf: Cat.2.</li>
+        </ul>
+      </section>
+
+      <section id="rp" class="card rule">
+        <h2>Roleplay-regels</h2>
+        <ul class="rulelist">
+          <li><strong>Art 6 – Fail RP:</strong> Niet realistisch deelnemen aan roleplay scenario’s is verboden. Straf: Cat.5.</li>
+          <li><strong>Art 7 – Verstoren RP:</strong> Opzettelijk roleplays van anderen verstoren is niet toegestaan. Straf: Cat.3.</li>
+          <li><strong>Art 8 – Metagaming:</strong> Het gebruiken van informatie van buiten Zilverdam is verboden. Straf: Cat.4.</li>
+          <li><strong>Art 9 – Streamsniping:</strong> Spelers via streams opzoeken of targeten is verboden. Straf: Cat.6.</li>
+          <li><strong>Art 10 – New Life Rule:</strong> Na de dood mag je niets van het vorige scenario onthouden. Straf: Cat.4.</li>
+          <li><strong>Art 11 – No Value of Life:</strong> Geen waarde hechten aan het leven van je karakter is niet toegestaan. Straf: Cat.6.</li>
+          <li><strong>Art 12 – RDM:</strong> Spelers zonder geldige reden doden is verboden. Straf: Cat.5.</li>
+          <li><strong>Art 13 – VDM:</strong> Opzettelijk spelers aanrijden is verboden. Straf: Cat.4.</li>
+          <li><strong>Art 14 – Combat-loggen:</strong> Binnen 10 minuten na een scenario uitloggen is verboden. Straf: Cat.4 + wapen inleveren indien van toepassing.</li>
+          <li><strong>Art 15 – Combat-stashen:</strong> Binnen 10 minuten na een scenario een wapen wegleggen is verboden. Straf: Cat.3 + wapen inleveren indien van toepassing.</li>
+        </ul>
+      </section>
+
+      <section id="economie" class="card rule">
+        <h2>Economie & Items</h2>
+        <ul class="rulelist">
+          <li><strong>Art 16 – Scammen:</strong> Oplichten met auto's, wapens of items is niet toegestaan. Straf: Cat.4 + teruggeven van items.</li>
+          <li><strong>Art 17 – IRL-Trading:</strong> Het verkopen van items voor echt geld is verboden. Straf: Cat.10.</li>
+          <li><strong>Art 18 – Overheidskleding:</strong> Burgers mogen geen overheidskleding dragen. Straf: Cat.3.</li>
+          <li><strong>Art 19 – Impersonatie Overheid:</strong> Zich voordoen als overheidsmedewerker is verboden. Straf: Cat.3.</li>
+          <li><strong>Art 20 – Copbaiting:</strong> Politie bewust uitlokken voor achtervolging is verboden. Straf: Cat.3.</li>
+        </ul>
+      </section>
+
+      <section id="veiligheid" class="card rule">
+        <h2>Hulpdiensten & Veiligheid</h2>
+        <ul class="rulelist">
+          <li><strong>Art 21 – Ambulance:</strong> Gijzelen of doden van ambulancepersoneel is niet toegestaan. Straf: Cat.5.</li>
+          <li><strong>Art 22 – Staff-Impersonatie:</strong> Zich voordoen als stafflid is verboden. Straf: Cat.5.</li>
+          <li><strong>Art 23 – Microfoon:</strong> Spelers moeten een goed werkende microfoon hebben voor RP. Straf: Cat.1.</li>
+        </ul>
+      </section>
+
+      <section id="techniek" class="card rule">
+        <h2>Technisch & Exploits</h2>
+        <ul class="rulelist">
+          <li><strong>Art 24 – Cheats:</strong> Het gebruik van externe software of cheats is verboden. Straf: Cat.10.</li>
+          <li><strong>Art 25 – Exploits:</strong> Bugs misbruiken of extra geld genereren is verboden. Straf: Cat.5 (bij ernstig misbruik Cat.10).</li>
+        </ul>
+      </section>
+
+      <section id="voertuigen" class="card rule">
+        <h2>Voertuigen & Rijden</h2>
+        <ul class="rulelist">
+          <li><strong>Art 28:</strong> Met voertuigen gebouwen binnenrijden is verboden. Straf: Cat.3.</li>
+          <li><strong>Art 29 – Basic outfit:</strong> Spelers moeten een standaard GTA-outfit dragen. Straf: Cat.2.</li>
+          <li><strong>Art 30 – GTA-Style Driving:</strong> Onrealistisch rijgedrag ("GTA-style") is verboden. Straf: Cat.1-2.</li>
+          <li><strong>Art 31 – Refunds:</strong> Voor een refund is minimaal 5 minuten clip + eigen stem vereist. Straf bij misbruik: Cat.2.</li>
+          <li><strong>Art 32 – Donatie-auto’s:</strong> Donatievoertuigen mogen niet doorverkocht worden. Straf: Cat.4.</li>
+        </ul>
+      </section>
+
+      <section id="overheid" class="card rule">
+        <h2>Overheidsregels</h2>
+        <p class="lead">Regels specifiek voor overheidspersoneel (politie, brandweer, gemeente).</p>
+        <ul class="rulelist">
+          <li>Ambtenaren en hulpdiensten moeten professioneel en realistisch handelen.</li>
+          <li>Gebruik van overheidskleding en voertuigen is tijdens dienst. Misbruik wordt bestraft (Cat.3).</li>
+          <li>Corruptie en ambtelijke misbruik zijn streng verboden; bij bewezen overtreding volgt Cat.3–Cat.9 afhankelijk van ernst.</li>
+          <li>Huisdoorzoekingen, aanhoudingen en inzetten moeten vooraf volgens RP-richtlijnen en procedures worden uitgevoerd.</li>
+          <li>Speciale acties (eilandvergrendeling, gijzelingen, etc.) moeten goedgekeurd worden door de desbetreffende coördinator of commandant.</li>
+        </ul>
+
+        <div style="margin-top:12px">
+          <strong>Operatie-Handvatten (kort):</strong>
+          <ul class="rulelist">
+            <li>Hostages: max 1 eis per hostage; maximale overval-claim 50k zwart geld.</li>
+            <li>Verboden eisen: achtervolgingen eisen of vragen die RP logica schenden.</li>
+            <li>Huiszoekingen: vereisen altijd goedkeuring van Hulpdiensten-Coördinatoren.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="onderwereld" class="card rule">
+        <h2>Onderwereldregels</h2>
+        <p class="lead">Regels voor criminele groepen, gangs en onderwereld-activiteiten.</p>
+        <ul class="rulelist">
+          <li>Criminele activiteiten moeten realistisch en verhalend zijn; geen instant winst of onlogische escapades.</li>
+          <li>Rippen (vallen/overvallen) mogen alleen met geldige RP-redenen en voorzien van zichtbaar bewijs (holster, vest, masker).</li>
+          <li>Gijzelingen: max 1 eis per hostage, geen onrealistische eisen. Ambulancepersoneel of ANWB mogen niet als hostage gebruikt worden.</li>
+          <li>Setups en gang-activiteiten mogen niet binnen 5 minuten na groenlicht worden uitgevoerd (tenzij anders overeengekomen).</li>
+          <li>Maximaal 20 leden per gang op straat tijdens grote acties (excl. meelopers) tenzij anders toegestaan.</li>
+          <li>Hit & Run is verboden; bij overval minimaal 10 minuten op locatie blijven voor vertrek.</li>
+          <li>Banden- en rijdregels: schiet niet op banden tenzij duidelijke RP-rede; lopen op dekking is toegestaan.</li>
+        </ul>
+
+        <div style="margin-top:12px">
+          <strong>Specifieke OW-regels (kort):</strong>
+          <ul class="rulelist">
+            <li>OW1 - Rippens: alleen toegestaan als duidelijk crimineel zichtbaar is en als zwart geld aanwezig is.</li>
+            <li>OW2 - Hostages: Ambulance & ANWB niet hostagen; wapens afpakken via porto of blokkeer-acties.</li>
+            <li>OW3 - Ganginvallen: alleen met toestemming van Onderwereld-coördinator.</li>
+            <li>OW14 - Minimale Hostages: definities per type overval (winkels, banken, juwelier etc.).</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="algemeen" class="card rule">
+        <h2>Algemene regels</h2>
+        <ul class="rulelist">
+          <li><strong>Art 33 – Bodylooten:</strong> Spullen van een dood persoon afpakken is verboden. Straf: Cat.3.</li>
+          <li><strong>Art 34 – Afmaken:</strong> Afmaken mag alleen indien er door 3 of meer mensen op je geschoten wordt. Straf: Cat.3.</li>
+          <li><strong>Art 35 – Uit auto schieten:</strong> Schieten in of uit een auto is niet toegestaan. Straf: Cat.2.</li>
+          <li><strong>Art 36 – Schelden met ziektes:</strong> Verboden. Straf: Cat.4.</li>
+          <li><strong>Art 37 – Liegen tegen staff:</strong> Niet toegestaan. Straf: Cat.5.</li>
+          <li><strong>Art 38 – Stemherkenning:</strong> Herkennen van spelers via stem bij gebruik van masker is niet toegestaan. Straf: Cat.3.</li>
+        </ul>
+      </section>
+
+      <section id="contact" class="card">
+        <h2>Contact / Discord</h2>
+        <p class="lead">Voor meldingen, bewijs en support gebruik ons Discord. Plaats bij een report altijd duidelijke clips en je beschrijving. Staff kan bewijs opvragen.</p>
+        <table>
+          <thead><tr><th>Titel</th><th>Beschrijving</th><th>Uitnodiging</th></tr></thead>
+          <tbody>
+            <tr><td>Zilverdam Officieel</td><td>Mainserver & community</td><td><a href="#">Klik hier</a></td></tr>
+            <tr><td>Zilverdam Support</td><td>Support en ban appeals</td><td><a href="#">Klik hier</a></td></tr>
+            <tr><td>Zilverdam Bedrijven</td><td>Particuliere bedrijven & banen</td><td><a href="#">Klik hier</a></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+    </main>
+
+    <aside class="toc">
+      <h4>Inhoudsopgave</h4>
+      <a href="#intro">Welkom</a>
+      <a href="#sancties">Sancties & Categorieën</a>
+      <a href="#gedrag">Gedrag & Communicatie</a>
+      <a href="#rp">Roleplay-regels</a>
+      <a href="#economie">Economie & Items</a>
+      <a href="#veiligheid">Hulpdiensten & Veiligheid</a>
+      <a href="#techniek">Technisch & Exploits</a>
+      <a href="#voertuigen">Voertuigen & Rijden</a>
+      <a href="#overheid">Overheidsregels</a>
+      <a href="#onderwereld">Onderwereldregels</a>
+      <a href="#algemeen">Algemene regels</a>
+      <a href="#contact">Contact / Discord</a>
+    </aside>
+
+  </div>
 </body>
 </html>
+
