@@ -1,81 +1,224 @@
-<!DOCTYPE html>
+<!--
+fivem-rules-website.html
+Single-file responsive website to present FiveM server regels/regulation.
+How to use:
+1. Save this file as `index.html`.
+2. Create a new GitHub repo and upload `index.html`.
+3. Enable GitHub Pages from the repository settings (use root /main branch) to publish.
+
+This file contains a light/dark toggle, anchor navigation, printable view and example content (Dutch)
+Replace or extend the sections with your final rules.
+-->
+
+<!doctype html>
 <html lang="nl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SRP-Fivem Wetboek</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        line-height: 1.6;
-        background-color: #f9f9f9;
-        color: #222;
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FiveM Regels — Server Reglement</title>
+  <meta name="description" content="Clean en overzichtelijke presentatie van de regels voor een FiveM server.">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#94a3b8; --accent:#7c3aed; --glass:rgba(255,255,255,0.04);
+      --text:#e6eef8; --maxw:1100px;
     }
-    h1, h2, h3 {
-        color: #2c3e50;
+    [data-theme="light"]{ --bg:#f7fafc; --card:#ffffff; --muted:#556070; --accent:#6b46c1; --glass:rgba(2,6,23,0.03); --text:#071025 }
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto; margin:0; background:linear-gradient(180deg,var(--bg),rgba(0,0,0,0)); color:var(--text); -webkit-font-smoothing:antialiased}
+    .container{max-width:var(--maxw); margin:40px auto; padding:24px}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+    .logo{display:flex;align-items:center;gap:12px}
+    .brand{font-weight:700;font-size:20px}
+    .tag{color:var(--muted);font-size:13px}
+    .controls{margin-left:auto;display:flex;gap:8px;align-items:center}
+    .btn{background:var(--glass);border-radius:10px;padding:8px 12px;border:1px solid rgba(255,255,255,0.03);cursor:pointer;color:var(--text);font-weight:600}
+    nav{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+    nav a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:8px;font-size:14px}
+    nav a:hover{color:var(--text);background:var(--glass)}
+    .grid{display:grid;grid-template-columns:320px 1fr;gap:20px}
+    aside{position:sticky;top:20px;padding:18px;border-radius:12px;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.02));border:1px solid rgba(255,255,255,0.02)}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(2,6,23,0.5);border:1px solid rgba(255,255,255,0.03)}
+    h1{margin:0;font-size:24px}
+    h2{font-size:18px;margin:0 0 10px}
+    .intro{color:var(--muted);margin-top:6px}
+    .penalties{display:flex;flex-direction:column;gap:8px}
+    .pen-row{display:flex;justify-content:space-between;padding:8px;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent)}
+    .pen-cat{font-weight:700}
+    .content{display:flex;flex-direction:column;gap:16px}
+    section.rule{padding:18px;border-radius:10px;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.02));border:1px solid rgba(255,255,255,0.02)}
+    .rule h3{margin:0 0 8px}
+    .rule p{margin:0;color:var(--muted)}
+    ul.rules{margin:10px 0 0 18px}
+    .actions{display:flex;gap:8px}
+    pre{background:rgba(0,0,0,0.25);padding:12px;border-radius:8px;overflow:auto}
+    footer{margin-top:28px;color:var(--muted);font-size:13px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr} aside{position:relative}} 
+    /* printable */
+    @media print{
+      body{background:white;color:black}
+      .controls,nav,footer{display:none}
+      .grid{grid-template-columns:1fr}
+      aside{display:none}
     }
-    .category {
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        background-color: #fff;
-        padding: 15px;
-        margin-bottom: 20px;
-        box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
-    }
-    .article {
-        margin-bottom: 10px;
-    }
-    .article strong {
-        color: #e74c3c;
-    }
-    .section {
-        margin-top: 20px;
-    }
-</style>
+  </style>
 </head>
-<body>
-<h1>SRP-Fivem Wetboek</h1>
+<body data-theme="dark">
+  <div class="container">
+    <header>
+      <div class="logo">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" aria-hidden><rect width="24" height="24" rx="6" fill="url(#g)"/></svg>
+        <div>
+          <div class="brand">FiveM Regels</div>
+          <div class="tag">Overzichtelijk, printable, klaar voor GitHub Pages</div>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="btn" id="toggle-theme">Toggle Light</button>
+        <button class="btn" id="print">Print</button>
+        <a class="btn" href="#download" id="downloadBtn">Download</a>
+      </div>
+    </header>
 
-<div class="category">
-    <h2>Categorieën Straffen</h2>
-    <p>Cat 1: Warn + 25 taken</p>
-    <p>Cat 2: Warn + 50 taken</p>
-    <p>Cat 3: Warn + 75 taken</p>
-    <p>Cat 4: Warn + 100 taken</p>
-    <p>Cat 5: Warn + 125 taken</p>
-    <p>Cat 6: Warn + 150 taken</p>
-    <p>Cat 7: Warn + Ban van 48 uur</p>
-    <p>Cat 8: Warn + Ban van 96 uur</p>
-    <p>Cat 9: Perm ban</p>
-    <p>Cat 10: Perm ban + Account Wipe</p>
-</div>
+    <nav>
+      <a href="#penalties">Sancties</a>
+      <a href="#behavior">Gedrag & Communicatie</a>
+      <a href="#rp">Roleplay-regels</a>
+      <a href="#economy">Economie & Items</a>
+      <a href="#safety">Hulpdiensten & Veiligheid</a>
+      <a href="#tech">Technisch & Exploits</a>
+      <a href="#vehicles">Voertuigen & Rijden</a>
+      <a href="#general">Algemene regels</a>
+    </nav>
 
-<div class="section category">
-    <h2>Gedrag en Communicatie</h2>
-    <div class="article"><strong>Art 1 - Respect:</strong> Schelden of beledigen van spelers is verboden. Straf: Cat. 1 - Bij ernstige gevallen Cat. 4.</div>
-    <div class="article"><strong>Art 2 - Taalgebruik:</strong> Bij binnenkomst is Nederlands verplicht om te beheren als taal. Straf: Cat. 1.</div>
-    <div class="article"><strong>Art 3 - Kloten:</strong> Opzettelijk overlast veroorzaken of 'kloten' is verboden. Straf: Cat. 4.</div>
-    <div class="article"><strong>Art 4 - Kloten:</strong> Spammen of onzin-reports maken is verboden. Straf: Cat. 2.</div>
-    <div class="article"><strong>Art 5 - OOC praten:</strong> Onnodig uit karakter praten is niet toegestaan. Straf: Cat. 2.</div>
-</div>
+    <div class="grid">
+      <aside class="card">
+        <h2 id="penalties">Sancties & Categorieën</h2>
+        <p class="intro">Elke overtreding heeft een categorie met bijbehorende strafmaat. Voorbeeld:</p>
+        <div class="penalties">
+          <div class="pen-row"><div class="pen-cat">Cat 1</div><div>Warn + 25 taken</div></div>
+          <div class="pen-row"><div class="pen-cat">Cat 2</div><div>Warn + 50 taken</div></div>
+          <div class="pen-row"><div class="pen-cat">Cat 3</div><div>Warn + 75 taken</div></div>
+          <div class="pen-row"><div class="pen-cat">Cat 4</div><div>Warn + 100 taken</div></div>
+          <div class="pen-row"><div class="pen-cat">Cat 5</div><div>Warn + 125 taken</div></div>
+          <div class="pen-row"><div class="pen-cat">Cat 6</div><div>Warn + 150 taken</div></div>
+          <div class="pen-row"><div class="pen-cat">Cat 7</div><div>Warn + Ban van 48 uur</div></div>
+          <div class="pen-row"><div class="pen-cat">Cat 8</div><div>Warn + Ban van 96 uur</div></div>
+          <div class="pen-row"><div class="pen-cat">Cat 9</div><div>Perm ban</div></div>
+          <div class="pen-row"><div class="pen-cat">Cat 10</div><div>Perm ban + Account Wipe</div></div>
+        </div>
 
-<div class="section category">
-    <h2>Roleplay-regels</h2>
-    <div class="article"><strong>Art 6 - Fail RP:</strong> Niet realistisch meespelen met roleplay scenario's. Straf: Cat. 5.</div>
-    <div class="article"><strong>Art 7 - Verstoren RP:</strong> Opzettelijk roleplays van andere verpesten. Straf: Cat. 3.</div>
-    <div class="article"><strong>Art 8 - Metagaming:</strong> Informatie van buiten fivem gebruiken. Straf: Cat. 4.</div>
-    <div class="article"><strong>Art 9 - Streamsniping:</strong> Spelers opzoeken of herkennen via een stream. Straf: Cat. 6.</div>
-    <div class="article"><strong>Art 10 - New Life Rule:</strong> Na dood vergeet je alles van het voorgaande scenario. Straf: Cat. 4.</div>
-    <!-- Voeg hier alle artikelen 11 t/m 40 in dezelfde structuur toe -->
-</div>
+        <hr style="margin:14px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)">
+        <div style="font-size:13px;color:var(--muted)">Tip: klik op een sectie om er direct naar te springen. Gebruik de print-knop voor een papieren versie.</div>
+      </aside>
 
-<div class="section category">
-    <h2>Onderwereld (OH) & Overval regels</h2>
-    <div class="article"><strong>OH 1 - Hostages:</strong> Per hostage mag 1 eis worden gesteld. Per overheidsmedewerker telt als 2 eisen. Elke aanvraag is 1 eis. Max 50k zwart geld.</div>
-    <div class="article"><strong>OH 2 - Verboden eisen:</strong> Niet toegestaan: geen achtervolging, eenheden wegsturen, hostages meenemen of vergelijkbare beperkingen.</div>
-    <!-- Voeg OH 3 t/m OW 14 op dezelfde manier toe -->
-</div>
+      <main class="content">
+        <section id="behavior" class="rule card">
+          <h3>Gedrag en Communicatie</h3>
+          <p class="intro">Samenvatting van belangrijke communicatie- en gedragsregels (NL).</p>
+          <ul class="rules">
+            <li><strong>Art 1 – Respect:</strong> Schelden, beledigen of ander ongepast gedrag is verboden. Straf: Cat.1 (bij ernstig Cat.4).</li>
+            <li><strong>Art 2 – Taalgebruik:</strong> Bij binnenkomst is Nederlands verplicht als voertaal. Straf: Cat.1.</li>
+            <li><strong>Art 3 – Overlast:</strong> Opzettelijk overlast veroorzaken is verboden. Straf: Cat.4.</li>
+            <li><strong>Art 4 – Spammen / Onzin-reports:</strong> Verboden. Straf: Cat.2.</li>
+            <li><strong>Art 5 – OOC praten:</strong> Onnodig uit karakter praten niet toegestaan. Straf: Cat.2.</li>
+          </ul>
+        </section>
 
+        <section id="rp" class="rule card">
+          <h3>Roleplay-regels</h3>
+          <ul class="rules">
+            <li><strong>Art 6 – Fail RP:</strong> Niet realistisch deelnemen is verboden. Straf: Cat.5.</li>
+            <li><strong>Art 7 – Verstoren RP:</strong> Opzettelijk RP van anderen verstoren niet toegestaan. Straf: Cat.3.</li>
+            <li><strong>Art 8 – Metagaming:</strong> Informatie van buiten FiveM gebruiken is verboden. Straf: Cat.4.</li>
+            <li><strong>Art 9 – Streamsniping:</strong> Spelers via streams opzoeken is verboden. Straf: Cat.6.</li>
+            <li><strong>Art 10 – New Life Rule:</strong> Na dood niets van vorige scenario onthouden. Straf: Cat.4.</li>
+            <li><strong>Art 11 – No Value of Life:</strong> Geen waarde hechten aan je karakter is niet toegestaan. Straf: Cat.6.</li>
+            <li><strong>Art 12 – RDM:</strong> Spelers zonder reden doden is verboden. Straf: Cat.5.</li>
+            <li><strong>Art 13 – VDM:</strong> Spelers opzettelijk aanrijden is verboden. Straf: Cat.4.</li>
+            <li><strong>Art 14 – Combat-loggen:</strong> Binnen 10 minuten na scenario uitloggen is verboden. Straf: Cat.4 + wapen inleveren indien van toepassing.</li>
+            <li><strong>Art 15 – Combat-stashen:</strong> Binnen 10 minuten na scenario wapen wegleggen is verboden. Straf: Cat.3 + wapen inleveren indien van toepassing.</li>
+          </ul>
+        </section>
+
+        <section id="economy" class="rule card">
+          <h3>Economie & Items</h3>
+          <ul class="rules">
+            <li><strong>Art 16 – Scammen:</strong> Oplichten met voertuigen, wapens of items is niet toegestaan. Straf: Cat.4 + items teruggeven.</li>
+            <li><strong>Art 17 – IRL-Trading:</strong> Items verkopen voor echt geld is verboden. Straf: Cat.10.</li>
+            <li><strong>Art 18 – Overheidskleding:</strong> Burgers mogen geen overheidskleding dragen. Straf: Cat.3.</li>
+            <li><strong>Art 19 – Impersonatie Overheid:</strong> Zich voordoen als overheidsmedewerker is verboden. Straf: Cat.3.</li>
+            <li><strong>Art 20 – Copbaiting:</strong> Politie bewust uitlokken is verboden. Straf: Cat.3.</li>
+          </ul>
+        </section>
+
+        <section id="safety" class="rule card">
+          <h3>Hulpdiensten & Veiligheid</h3>
+          <ul class="rules">
+            <li><strong>Art 21:</strong> Gijzelen of doden van ambulancepersoneel niet toegestaan. Straf: Cat.5.</li>
+            <li><strong>Art 22:</strong> Staff-impersonatie verboden. Straf: Cat.5.</li>
+            <li><strong>Art 23:</strong> Spelers moeten een werkende microfoon hebben. Straf: Cat.1.</li>
+          </ul>
+        </section>
+
+        <section id="tech" class="rule card">
+          <h3>Technisch & Exploits</h3>
+          <ul class="rules">
+            <li><strong>Art 24 – Cheats:</strong> Externe software of cheats verboden. Straf: Cat.10.</li>
+            <li><strong>Art 25 – Exploits:</strong> Bugs misbruiken verboden. Straf: Cat.5 (ernstig: Cat.10).</li>
+          </ul>
+        </section>
+
+        <section id="vehicles" class="rule card">
+          <h3>Voertuigen & Rijden</h3>
+          <ul class="rules">
+            <li><strong>Art 28:</strong> Met voertuigen gebouwen binnenrijden is verboden. Straf: Cat.3.</li>
+            <li><strong>Art 29 – Basic outfit:</strong> Standaard GTA-outfit verplicht. Straf: Cat.2.</li>
+            <li><strong>Art 30 – GTA-Style Driving:</strong> Onrealistisch rijgedrag verboden. Straf: Cat.1-2.</li>
+            <li><strong>Art 31 – Refunds:</strong> Clip min. 5 minuten en eigen stem vereist. Straf: Cat.2 bij misbruik.</li>
+            <li><strong>Art 32 – Donatie-auto’s:</strong> Donatievoertuigen mogen niet worden doorverkocht. Straf: Cat.4.</li>
+          </ul>
+        </section>
+
+        <section id="general" class="rule card">
+          <h3>Algemene regels</h3>
+          <ul class="rules">
+            <li><strong>Art 33 – Bodylooten:</strong> Spullen van een dode speler afpakken verboden. Straf: Cat.3.</li>
+            <li><strong>Art 34 – Afmaken:</strong> Alleen afmaken bij schieten door 3+ mensen. Straf: Cat.3.</li>
+            <li><strong>Art 35 – Uit auto schieten:</strong> Schieten in/uit auto is niet toegestaan. Straf: Cat.2.</li>
+            <li><strong>Art 36 – Schelden met ziektes:</strong> Verboden. Straf: Cat.4.</li>
+            <li><strong>Art 37 – Liegen tegen staff:</strong> Niet toegestaan. Straf: Cat.5.</li>
+            <li><strong>Art 38 – Stemherkenning:</strong> Personen herkennen via stem is niet toegestaan. Straf: Cat.3.</li>
+            <li><strong>Art 40 – Gangkleding:</strong> Gangkleding verboden behalve voor leden van die gang.</li>
+          </ul>
+        </section>
+
+        <footer>
+          © "Jouw Servernaam" — Pas regels aan voordat je publiceert. Gebruik de download-knop om een copy van deze pagina te krijgen (HTML).
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // theme toggle
+    const btn = document.getElementById('toggle-theme');
+    const body = document.body;
+    btn.addEventListener('click', ()=>{
+      if(body.getAttribute('data-theme') === 'dark'){
+        body.setAttribute('data-theme','light'); btn.textContent = 'Toggle Dark';
+      } else { body.setAttribute('data-theme','dark'); btn.textContent = 'Toggle Light'; }
+    });
+    // print
+    document.getElementById('print').addEventListener('click', ()=>window.print());
+    // download HTML
+    document.getElementById('downloadBtn').addEventListener('click', (e)=>{
+      e.preventDefault();
+      const blob = new Blob([document.documentElement.outerHTML], {type: 'text/html'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'index.html'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+  </script>
 </body>
 </html>
